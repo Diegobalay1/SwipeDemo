@@ -11,6 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.swipedemo.ui.theme.SwipeDemoTheme
+import androidx.compose.material.*
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,22 +25,41 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    MainScreen()
                 }
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun MainScreen() {
+    val parentBoxWidth = 320.dp
+    val childBoxSides = 30.dp
+
+    val swipeableState = rememberSwipeableState(initialValue = "L")
+    val widthPx = with(LocalDensity.current) {
+        (parentBoxWidth - childBoxSides).toPx()
+    }
+    val anchors = mapOf(0f to "L", widthPx / 2 to "C", widthPx to "R")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     SwipeDemoTheme {
-        Greeting("Android")
+        MainScreen()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
